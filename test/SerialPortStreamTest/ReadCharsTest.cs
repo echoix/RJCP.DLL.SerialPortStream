@@ -58,7 +58,7 @@
 
                 char[] receive = new char[5];
                 int received = stream.Read(receive, 0, receive.Length);
-                Assert.That(received, Is.EqualTo(0));
+                Assert.That(received, Is.Zero);
 
                 byte[] send = new byte[] { 0x65, 0x66, 0x67 };
                 serial.VirtualBuffer.WriteReceivedData(send, 0, send.Length);
@@ -345,7 +345,7 @@
                 Assert.That(serial.VirtualBuffer.ReceivedDataLength, Is.EqualTo(sdata.Length + eof.Length));
 
                 string result = stream.ReadTo("eof");
-                Assert.That(stream.BytesToRead, Is.EqualTo(0));
+                Assert.That(stream.BytesToRead, Is.Zero);
                 Assert.That(result, Has.Length.EqualTo(1024 - eof.Length));  // The maximum line length is 1024
                 int offset = sdata.Length - result.Length;
                 for (int i = 0; i < result.Length; i++) {
@@ -381,7 +381,7 @@
                 Assert.That(serial.VirtualBuffer.ReceivedDataLength, Is.EqualTo(sdata.Length + eof.Length));
 
                 string result = stream.ReadTo("eof");
-                Assert.That(stream.BytesToRead, Is.EqualTo(0));
+                Assert.That(stream.BytesToRead, Is.Zero);
                 Assert.That(result, Has.Length.EqualTo(1024 - eof.Length));  // The maximum line length is 1024
                 int offset = sdata.Length - result.Length;
                 for (int i = 0; i < result.Length; i++) {
@@ -423,7 +423,7 @@
                 Assert.That(serial.VirtualBuffer.ReceivedDataLength, Is.EqualTo(sdata.Length + eof.Length));
 
                 string result = stream.ReadTo("eof");
-                Assert.That(stream.BytesToRead, Is.EqualTo(0));
+                Assert.That(stream.BytesToRead, Is.Zero);
                 Assert.That(result, Has.Length.EqualTo(1024 - eof.Length));  // The maximum line length is 1024
                 int offset = sdata.Length - result.Length;
                 for (int i = 0; i < result.Length; i++) {
@@ -462,7 +462,7 @@
                 Assert.That(serial.VirtualBuffer.ReceivedDataLength, Is.EqualTo(sdata.Length + eof.Length));
 
                 string result = stream.ReadTo("eof");
-                Assert.That(stream.BytesToRead, Is.EqualTo(0));
+                Assert.That(stream.BytesToRead, Is.Zero);
                 Assert.That(result, Has.Length.EqualTo(1024 - eof.Length));  // The maximum line length is 1024
                 int offset = sdata.Length - result.Length;
                 for (int i = 0; i < result.Length; i++) {

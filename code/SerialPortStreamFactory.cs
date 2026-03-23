@@ -4,6 +4,12 @@
     using RJCP.Core.Environment;
     using Serial;
 
+#if NET10_0_OR_GREATER
+    using Lock = System.Threading.Lock;
+#else
+    using Lock = System.Object;
+#endif
+
     /// <summary>
     /// A Factory for <see cref="SerialPortStream"/> objects, based on the runtime environment.
     /// </summary>
@@ -13,7 +19,7 @@
     public class SerialPortStreamFactory : ISerialPortStreamFactory
     {
         private static ISerialPortStreamFactory s_Factory;
-        private static readonly object s_FactoryLock = new();
+        private static readonly Lock s_FactoryLock = new();
 
         /// <summary>
         /// Gets or sets the factory to get a <see cref="SerialPortStream"/> object.

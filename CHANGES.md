@@ -1,5 +1,6 @@
 # List of Changes with Releases <!-- omit in toc -->
 
+- [Version 3.0.5 (libnserial 1.1.4)](#version-305-libnserial-114)
 - [Version 3.0.4 (libnserial 1.1.4) - 26/Sep/2025](#version-304-libnserial-114---26sep2025)
 - [Version 3.0.3 (libnserial 1.1.4) - 3/May/2025](#version-303-libnserial-114---3may2025)
 - [Version 3.0.2 (libnserial 1.1.4) - 20/Apr/2025](#version-302-libnserial-114---20apr2025)
@@ -23,6 +24,12 @@
 - [Version 2.0.1.1 (libnserial 1.0.0) - 7/Sep/2016](#version-2011-libnserial-100---7sep2016)
 - [Version 2.0.1 (libnserial 1.0.0) - 7/Sep/2016](#version-201-libnserial-100---7sep2016)
 - [Version 2.0.0 - 25/May/2016](#version-200---25may2016)
+
+## Version 3.0.4 (libnserial 1.1.4)
+
+Quality:
+
+- DOTNET-1094: Update for .NET 10.0
 
 ## Version 3.0.4 (libnserial 1.1.4) - 26/Sep/2025
 

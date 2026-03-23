@@ -159,9 +159,9 @@
         {
             using (SerialPortStream src = new(SourcePort)) {
                 src.DiscardNull = false;
-                Assert.That(src.DiscardNull, Is.EqualTo(false));
+                Assert.That(src.DiscardNull, Is.False);
                 src.DiscardNull = true;
-                Assert.That(src.DiscardNull, Is.EqualTo(true));
+                Assert.That(src.DiscardNull, Is.True);
             }
         }
 
@@ -170,7 +170,7 @@
         {
             using (SerialPortStream src = new(SourcePort)) {
                 src.ParityReplace = 0;
-                Assert.That(src.ParityReplace, Is.EqualTo(0));
+                Assert.That(src.ParityReplace, Is.Zero);
                 src.ParityReplace = (byte)'.';
                 Assert.That(src.ParityReplace, Is.EqualTo((byte)'.'));
                 src.ParityReplace = 255;
@@ -185,9 +185,9 @@
         {
             using (SerialPortStream src = new(SourcePort)) {
                 src.TxContinueOnXOff = true;
-                Assert.That(src.TxContinueOnXOff, Is.EqualTo(true));
+                Assert.That(src.TxContinueOnXOff, Is.True);
                 src.TxContinueOnXOff = false;
-                Assert.That(src.TxContinueOnXOff, Is.EqualTo(false));
+                Assert.That(src.TxContinueOnXOff, Is.False);
             }
         }
 

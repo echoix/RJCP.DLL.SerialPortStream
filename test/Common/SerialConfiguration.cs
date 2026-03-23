@@ -3,9 +3,15 @@
     using System.Configuration;
     using RJCP.Core.Environment;
 
+#if NET10_0_OR_GREATER
+    using Lock = System.Threading.Lock;
+#else
+    using Lock = System.Object;
+#endif
+
     public static class SerialConfiguration
     {
-        private static readonly object m_SyncLock = new();
+        private static readonly Lock m_SyncLock = new();
         private static string s_SourcePort = null;
         private static string s_DestPort = null;
 

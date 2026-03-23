@@ -15,6 +15,12 @@
     using Microsoft.Extensions.Logging;
 #endif
 
+#if NET10_0_OR_GREATER
+    using Lock = System.Threading.Lock;
+#else
+    using Lock = System.Object;
+#endif
+
     /// <summary>
     /// The <see cref="SerialPortStream"/> is a stream class to communicate with serial port based devices.
     /// </summary>
@@ -361,7 +367,7 @@
             }
         }
 
-        private readonly object m_CloseLock = new();
+        private readonly Lock m_CloseLock = new();
 
         /// <summary>
         /// Closes the port connection, sets the <see cref="IsOpen"/> property to <see langword="false"/>. Does not
@@ -2307,7 +2313,7 @@
         #endregion
 
         #region Event Handling and Abstraction
-        private readonly object m_EventLock = new();
+        private readonly Lock m_EventLock = new();
         private readonly ManualResetEvent m_EventProcessing = new(false);
         private SerialData m_SerialDataFlags = SerialData.NoData;
         private SerialError m_SerialErrorFlags = SerialError.NoError;

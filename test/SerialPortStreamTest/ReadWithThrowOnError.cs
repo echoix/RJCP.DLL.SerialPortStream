@@ -48,7 +48,7 @@ namespace RJCP.IO.Ports
                         _ = stream.Read(buffer, 0, buffer.Length);
                     }, Throws.TypeOf<InvalidOperationException>());
                 } else {
-                    Assert.That(stream.Read(buffer, 0, buffer.Length), Is.EqualTo(0));
+                    Assert.That(stream.Read(buffer, 0, buffer.Length), Is.Zero);
                 }
             }
         }
@@ -67,7 +67,7 @@ namespace RJCP.IO.Ports
                         stream.Read(buffer, 0, buffer.Length);
                     }, Throws.TypeOf<InvalidOperationException>());
                 } else {
-                    Assert.That(stream.Read(buffer, 0, buffer.Length), Is.EqualTo(0));
+                    Assert.That(stream.Read(buffer, 0, buffer.Length), Is.Zero);
                 }
             }
         }
@@ -177,7 +177,7 @@ namespace RJCP.IO.Ports
                         _ = await stream.ReadAsync(buffer, 0, buffer.Length);
                     }, Throws.TypeOf<InvalidOperationException>());
                 } else {
-                    Assert.That(await stream.ReadAsync(buffer, 0, buffer.Length), Is.EqualTo(0));
+                    Assert.That(await stream.ReadAsync(buffer, 0, buffer.Length), Is.Zero);
                 }
             }
         }
@@ -198,7 +198,7 @@ namespace RJCP.IO.Ports
                     }, Throws.TypeOf<InvalidOperationException>());
                 } else {
                     IAsyncResult ar = stream.BeginRead(buffer, 0, buffer.Length, null, null);
-                    Assert.That(stream.EndRead(ar), Is.EqualTo(0));
+                    Assert.That(stream.EndRead(ar), Is.Zero);
                 }
             }
         }
@@ -220,7 +220,7 @@ namespace RJCP.IO.Ports
                         _ = stream.Read(buffer, 0, buffer.Length);
                     }, Throws.TypeOf<TimeoutException>());
                 } else {
-                    Assert.That(stream.Read(buffer, 0, buffer.Length), Is.EqualTo(0));
+                    Assert.That(stream.Read(buffer, 0, buffer.Length), Is.Zero);
                 }
             }
         }
@@ -242,7 +242,7 @@ namespace RJCP.IO.Ports
                         _ = stream.Read(buffer, 0, buffer.Length);
                     }, Throws.TypeOf<TimeoutException>());
                 } else {
-                    Assert.That(stream.Read(buffer, 0, buffer.Length), Is.EqualTo(0));
+                    Assert.That(stream.Read(buffer, 0, buffer.Length), Is.Zero);
                 }
             }
         }
@@ -358,7 +358,7 @@ namespace RJCP.IO.Ports
                         _ = await stream.ReadAsync(buffer, 0, buffer.Length);
                     }, Throws.TypeOf<TimeoutException>());
                 } else {
-                    Assert.That(await stream.ReadAsync(buffer, 0, buffer.Length), Is.EqualTo(0));
+                    Assert.That(await stream.ReadAsync(buffer, 0, buffer.Length), Is.Zero);
                 }
             }
         }
@@ -383,7 +383,7 @@ namespace RJCP.IO.Ports
                     }, Throws.TypeOf<TimeoutException>());
                 } else {
                     IAsyncResult ar = stream.BeginRead(buffer, 0, buffer.Length, null, null);
-                    Assert.That(stream.EndRead(ar), Is.EqualTo(0));
+                    Assert.That(stream.EndRead(ar), Is.Zero);
                 }
             }
         }

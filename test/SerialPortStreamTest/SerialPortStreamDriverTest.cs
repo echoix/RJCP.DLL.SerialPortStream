@@ -45,7 +45,7 @@
                 Assert.That(inbuff[0], Is.EqualTo(0xAA));
 
                 // A second read, should return zero, indicating that the file is closed
-                Assert.That(stream.Read(inbuff, 0, inbuff.Length), Is.EqualTo(0));
+                Assert.That(stream.Read(inbuff, 0, inbuff.Length), Is.Zero);
 
                 // Now that we've read all data, we should get an exception
                 Assert.That(() => {
@@ -71,7 +71,7 @@
                 Assert.That(stream.StopBits, Is.EqualTo(StopBits.One));
                 Assert.That(stream.Handshake, Is.EqualTo(Handshake.None));
                 Assert.That(stream.DiscardNull, Is.False);
-                Assert.That(stream.ParityReplace, Is.EqualTo(0));
+                Assert.That(stream.ParityReplace, Is.Zero);
                 Assert.That(stream.TxContinueOnXOff, Is.False);
                 Assert.That(stream.XOffLimit, Is.EqualTo(512));
                 Assert.That(stream.XOnLimit, Is.EqualTo(2048));

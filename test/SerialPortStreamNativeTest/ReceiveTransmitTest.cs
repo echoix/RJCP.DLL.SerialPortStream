@@ -215,11 +215,11 @@
                 // It should take 512 * 10 / 115200 s = 44ms to send, timeout of 300ms.
                 src.Write(sdata, 0, sdata.Length);
                 src.Flush();
-                Assert.That(src.BytesToWrite, Is.EqualTo(0));
+                Assert.That(src.BytesToWrite, Is.Zero);
 
                 src.Write(sdata, 0, sdata.Length);
                 src.Flush();
-                Assert.That(src.BytesToWrite, Is.EqualTo(0));
+                Assert.That(src.BytesToWrite, Is.Zero);
 
                 // Receive all data, just so that it is removed in the hardware buffers for the next test case.
                 byte[] ddata = new byte[512];

@@ -83,8 +83,8 @@
                 Assert.That(src.CanWrite, Is.False);
                 Assert.That(src.IsOpen, Is.False);
                 Assert.That(src.PortName, Is.EqualTo(SourcePort));
-                Assert.That(src.BytesToRead, Is.EqualTo(0));
-                Assert.That(src.BytesToWrite, Is.EqualTo(0));
+                Assert.That(src.BytesToRead, Is.Zero);
+                Assert.That(src.BytesToWrite, Is.Zero);
 
                 src.Open();
                 Assert.That(src.CanRead, Is.True);
@@ -236,7 +236,7 @@
                 serialSource.Write(buffer, 0, buffer.Length);
                 serialSource.DiscardOutBuffer();
                 Thread.Sleep(50);
-                Assert.That(serialSource.BytesToWrite, Is.EqualTo(0));
+                Assert.That(serialSource.BytesToWrite, Is.Zero);
             }
         }
 

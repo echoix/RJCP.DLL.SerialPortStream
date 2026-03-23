@@ -507,7 +507,7 @@
                 Assert.That(stream.IsOpen, Is.False);
                 Assert.That(stream.CanRead, Is.True);
                 int r = stream.Read(new byte[128], 0, 128);
-                Assert.That(r, Is.EqualTo(0));
+                Assert.That(r, Is.Zero);
             }
         }
 
@@ -539,7 +539,7 @@
                 Assert.That(serial.VirtualBuffer.SentDataLength, Is.EqualTo(1024));
 
                 stream.DiscardOutBuffer();
-                Assert.That(serial.VirtualBuffer.SentDataLength, Is.EqualTo(0));
+                Assert.That(serial.VirtualBuffer.SentDataLength, Is.Zero);
             }
         }
 
@@ -556,7 +556,7 @@
                 Assert.That(serial.VirtualBuffer.ReceivedDataLength, Is.EqualTo(1024));
 
                 stream.DiscardInBuffer();
-                Assert.That(serial.VirtualBuffer.ReceivedDataLength, Is.EqualTo(0));
+                Assert.That(serial.VirtualBuffer.ReceivedDataLength, Is.Zero);
             }
         }
 
@@ -581,7 +581,7 @@
                 stream.ReadTimeout = 100;
                 stream.Open();
 
-                Assert.That(stream.Read(new byte[128], 0, 128), Is.EqualTo(0));
+                Assert.That(stream.Read(new byte[128], 0, 128), Is.Zero);
             }
         }
 

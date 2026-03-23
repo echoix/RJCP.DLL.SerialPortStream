@@ -341,7 +341,7 @@
                 if (!closedEvent.WaitOne(0)) {
                     Assert.Fail("Read returned before being disposed.");
                 }
-                Assert.That(bytes, Is.EqualTo(0));
+                Assert.That(bytes, Is.Zero);
 
                 serial.Wait();
             }

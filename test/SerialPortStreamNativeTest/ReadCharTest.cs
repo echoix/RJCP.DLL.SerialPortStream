@@ -374,7 +374,7 @@
                 }
 
                 string result = dst.ReadTo("eof");
-                Assert.That(dst.BytesToRead, Is.EqualTo(0));
+                Assert.That(dst.BytesToRead, Is.Zero);
                 Assert.That(result, Has.Length.EqualTo(1024 - 3));
                 int offset = sdata.Length - result.Length;
                 for (int i = 0; i < result.Length; i++) {

@@ -166,7 +166,7 @@
 
                 Assert.That(read, Is.EqualTo(4));
                 Assert.That(dataRead, Is.EqualTo(4));
-                Assert.That(serial.VirtualBuffer.ReceivedDataLength, Is.EqualTo(0));
+                Assert.That(serial.VirtualBuffer.ReceivedDataLength, Is.Zero);
             }
         }
 
@@ -195,7 +195,7 @@
                 // pool). So for this test we have to wait for it.
                 Assert.That(mre.Wait(1000), Is.True);
                 Assert.That(read, Is.EqualTo(4));
-                Assert.That(serial.VirtualBuffer.ReceivedDataLength, Is.EqualTo(0));
+                Assert.That(serial.VirtualBuffer.ReceivedDataLength, Is.Zero);
             }
         }
 
@@ -218,7 +218,7 @@
                 stream.Open();
                 int read = stream.Read(buffer, 0, buffer.Length);
 
-                Assert.That(read, Is.EqualTo(0));
+                Assert.That(read, Is.Zero);
 
                 serialTask.Wait();
                 Assert.That(serial.IsRunning, Is.False);
