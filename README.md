@@ -126,9 +126,10 @@ aspect when writing this library.
 
 Software has been tested and developed using:
 
-- .NET 6.0 and 8.0 on Windows 11 Pro x64, .NET SDK 9.x
+- .NET 6.0 and 8.0 on Windows 11 Pro x64, .NET SDK 10.x
 - .NET 4.8.1 on Windows 11 Pro x64
-- Mono 6.x from Xamarin on Ubuntu 22.04 (64-bit)
+
+Software has not been recently tested on Linux, but should work.
 
 See later in these notes for known issues and changes.
 

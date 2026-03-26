@@ -15,6 +15,7 @@
 
 #if NET6_0_OR_GREATER
     using System.Reflection;
+    using System.Collections;
 #endif
 
     /// <summary>
@@ -96,36 +97,51 @@
             }
         }
 
+        // Ensure we list only ports in the registry marked as SERIALCOMM. Some devices show up in the device
+        // manager with a port name, but the class is not set to "Port", even though it is in SERIALCOMM. These
+        // devices should still be shown.
+        //
+        // We don't rely on the SERIALCOMM only, as some devices show up in the registry, despite being unplugged,
+        // which can be reliably detected by the DeviceInstance collection.
+        //
+        // References:
+        // - Com2Com doesn't have a "Port" class, but should be present.
+        // - https://github.com/jcurl/RJCP.DLL.SerialPortStream/issues/163 describes other devices that are not
+        //   removed from the registry, even though it is unplugged.
+
         /// <summary>
         /// Gets an array of serial port names.
         /// </summary>
         /// <returns>An array of serial port names.</returns>
         public string[] GetPortNames()
         {
-            using (RegistryKey local = Registry.LocalMachine.OpenSubKey(@"HARDWARE\DEVICEMAP\SERIALCOMM", false)) {
-                if (local is null) {
-#if NET40
-                    return new string[0];
-#else
-                    return Array.Empty<string>();
-#endif
-                }
-
-                string[] k = local.GetValueNames();
-                if (k.Length > 0) {
-                    string[] ports = new string[local.ValueCount];
-                    for (int i = 0; i < k.Length; i++) {
-                        ports[i] = local.GetValue(k[i]) as string;
-                    }
-                    return ports;
-                }
-
+            IList<DeviceInstance> devices = DeviceInstance.GetList(LocateMode.Normal);
+            if (devices is null) {
 #if NET40
                 return new string[0];
 #else
                 return Array.Empty<string>();
 #endif
             }
+
+            HashSet<string> registryPorts = GetRegistryPorts();
+            HashSet<string> foundPorts = new();
+            List<string> ports = new();
+            foreach (DeviceInstance device in devices) {
+                if (!device.HasProblem &&
+                    device.GetDeviceProperty("PortName") is string portName &&
+                    registryPorts.Contains(portName)) {
+                    ports.Add(portName);
+                    foundPorts.Add(portName);
+                }
+            }
+
+#if NET40
+            return ports.ToArray();
+#else
+            if (ports.Count > 0) return ports.ToArray();
+            return Array.Empty<string>();
+#endif
         }
 
         /// <summary>
@@ -142,40 +158,51 @@
         /// <returns>An array of serial ports.</returns>
         public PortDescription[] GetPortDescriptions()
         {
-            Dictionary<string, PortDescription> list = new();
+            IList<DeviceInstance> devices = DeviceInstance.GetList(LocateMode.Normal);
+            if (devices is null) {
+#if NET40
+                return new PortDescription[0];
+#else
+                return Array.Empty<PortDescription>();
+#endif
+            }
+
+            HashSet<string> registryPorts = GetRegistryPorts();
+            HashSet<string> foundPorts = new();
+            List<PortDescription> ports = new();
+            foreach (DeviceInstance device in devices) {
+                if (!device.HasProblem &&
+                    device.GetDeviceProperty("PortName") is string portName &&
+                    registryPorts.Contains(portName)) {
+                    PortDescription description = new(portName, device.FriendlyName) {
+                        Description = device.DeviceDescription
+                    };
+                    ports.Add(description);
+                    foundPorts.Add(portName);
+                }
+            }
+
+#if NET40
+            return ports.ToArray();
+#else
+            if (ports.Count > 0) return ports.ToArray();
+            return Array.Empty<PortDescription>();
+#endif
+        }
+
+        private static HashSet<string> GetRegistryPorts()
+        {
+            HashSet<string> foundPorts = new();
             using (RegistryKey local = Registry.LocalMachine.OpenSubKey(@"HARDWARE\DEVICEMAP\SERIALCOMM", false)) {
                 if (local is not null) {
                     string[] k = local.GetValueNames();
                     foreach (string p in k) {
                         string n = local.GetValue(p) as string;
-                        list.Add(n, new PortDescription(n, ""));
+                        foundPorts.Add(n);
                     }
                 }
             }
-
-            QueryDevices(list);
-
-            // Get the array and return it
-            int i = 0;
-            PortDescription[] ports = new PortDescription[list.Count];
-            foreach (PortDescription p in list.Values) {
-                ports[i++] = p;
-            }
-            return ports;
-        }
-
-        private static void QueryDevices(Dictionary<string, PortDescription> list)
-        {
-            IList<DeviceInstance> devices = DeviceInstance.GetList(LocateMode.Normal);
-            foreach (DeviceInstance device in devices) {
-                if (!device.HasProblem &&
-                    device.GetDeviceProperty("PortName") is string portName &&
-                    list.TryGetValue(portName, out PortDescription port)) {
-                    port.Description = device.FriendlyName;
-                    if (string.IsNullOrEmpty(port.Description)) port.Description = device.DeviceDescription;
-                    port.Manufacturer = device.Manufacturer;
-                }
-            }
+            return foundPorts;
         }
 
         private int m_Baud = 115200;

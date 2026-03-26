@@ -25,7 +25,12 @@
 - [Version 2.0.1 (libnserial 1.0.0) - 7/Sep/2016](#version-201-libnserial-100---7sep2016)
 - [Version 2.0.0 - 25/May/2016](#version-200---25may2016)
 
-## Version 3.0.4 (libnserial 1.1.4)
+## Version 3.0.5 (libnserial 1.1.4)
+
+Bugfix:
+
+- [Issue #163](https://github.com/jcurl/RJCP.DLL.SerialPortStream/issues/163),
+  DOTNET-1085: Don't get port list when device is disconnected.
 
 Quality:
 
